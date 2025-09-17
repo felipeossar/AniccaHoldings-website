@@ -12,105 +12,177 @@
   <link rel="icon" href="/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :target::before { content: ""; display: block; height: 120px; margin-top: -120px; }
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      #bg-video { display: none; }
-      body { background: #0f172a; }
+    :root{
+      --brand:#78d2b1; /* corporate light green */
+      --brand-ink:#0f2f25; /* deep green for text accents */
     }
+    /* anchor offset for sticky header */
+    :target::before { content: ""; display: block; height: 120px; margin-top: -120px; }
+
+    /* Prefer-reduced-motion: fallbacks */
+    @media (prefers-reduced-motion: reduce) {
+      .motion-ok{ display:none !important; }
+    }
+
+    /* Scrollytelling helpers */
+    .pin { position: sticky; top: 0; height: 100vh; }
+    .vh { height: 100vh; }
+    .vhx2 { height: 200vh; }
+
+    .frame { position:absolute; inset:0; opacity:0; transform:scale(1.08); transition:opacity .6s ease, transform .8s ease; }
+    .frame.is-active{ opacity:1; transform:scale(1); }
+
+    .parallax [data-parallax]{ transform: translateY(24px); opacity:.001; transition: transform .9s cubic-bezier(.2,.65,.2,1), opacity .9s ease; }
+    .parallax .in-view [data-parallax]{ transform: translateY(0); opacity:1; }
   </style>
 </head>
-<body class="antialiased text-slate-800">
+<body class="antialiased text-slate-800 bg-white">
 
-  <!-- Background video -->
-  <video id="bg-video" class="fixed inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
+  <!-- Full-page Background Video (behind everything) -->
+  <video id="bg-video" class="fixed inset-0 w-full h-full object-cover -z-10 motion-ok" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
     <source src="/assets/hero.mp4" type="video/mp4" />
   </video>
-
-  <!-- Dark overlay with gradient -->
+  <!-- Strong overlay for readability -->
   <div class="fixed inset-0 -z-10 pointer-events-none">
     <div class="absolute inset-0 bg-black/60 md:bg-black/50"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70"></div>
   </div>
 
-  <!-- Sticky header -->
-  <header class="sticky top-0 z-40 bg-black/70 backdrop-blur border-b border-slate-700">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-2 font-semibold text-white drop-shadow-md">
+  <!-- Sticky global header with brand tone -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-[color:var(--brand-ink)]/80 border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between text-white">
+      <a href="#top" class="flex items-center gap-2 font-semibold drop-shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
         <span>Anicca Holdings</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#about" class="text-white hover:text-gray-200 drop-shadow-md">About</a>
-        <a href="#contact" class="text-white hover:text-gray-200 drop-shadow-md">Contact</a>
+        <a href="#about" class="hover:text-[color:var(--brand)] drop-shadow-md">About</a>
+        <a href="#contact" class="hover:text-[color:var(--brand)] drop-shadow-md">Contact</a>
       </nav>
     </div>
-    <div class="max-w-6xl mx-auto px-4 pb-4">
-      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white drop-shadow-md">Anicca Holdings LLC</h1>
-      <p class="mt-1 md:mt-2 text-base md:text-lg text-white/90 drop-shadow-md">
-        Independent advisory and investment platform connecting Latin America with global opportunities.
-      </p>
+    <div class="max-w-6xl mx-auto px-4 pb-4 text-white">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-tight drop-shadow-md">Anicca Holdings LLC</h1>
+      <p class="mt-1 md:mt-2 text-base md:text-lg text-white/90 drop-shadow-md">Independent advisory and investment platform connecting Latin America with global opportunities.</p>
     </div>
   </header>
 
-  <!-- About -->
-  <section id="about" class="py-12 md:py-16">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold text-white drop-shadow-md">About Us</h2>
-      <p class="mt-4 leading-7 text-white/90 drop-shadow-md">
-        Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective.
-      </p>
-      <p class="mt-4 leading-7 text-white/90 drop-shadow-md">
-        Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver results that are sustainable, compliant, and growth-oriented.
-      </p>
+  <!-- Scene 1: About (parallax reveals) -->
+  <section id="about" class="py-24 parallax">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold text-white drop-shadow-md">About Us</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-8">
+        <p class="text-white/90 leading-7 drop-shadow-md" data-parallax>
+          Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective.
+        </p>
+        <p class="text-white/90 leading-7 drop-shadow-md" data-parallax>
+          Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver results that are sustainable, compliant, and growth-oriented.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- What We Do -->
-  <section class="py-12 md:py-16">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold text-white drop-shadow-md">What We Do</h2>
-      <ul class="mt-6 space-y-3 text-white/90 drop-shadow-md">
-        <li><strong>M&amp;A Advisory &amp; Structuring</strong> – Advising on cross-border mergers, acquisitions, and divestitures, with a focus on maximizing value.</li>
-        <li><strong>Business Development</strong> – Identifying and introducing strategic clients, partners, and investors throughout the U.S. and Latin America.</li>
-        <li><strong>Management Consulting</strong> – Providing operational and financial advisory to support expansion, restructuring, and performance improvement.</li>
-        <li><strong>Investing</strong> – Deploying capital selectively into opportunities in Latin America and the U.S., with a focus on strategic, long-term value creation.</li>
-      </ul>
+  <!-- Scene 2: Pinned stack (images/videos crossfade like Apple sections) -->
+  <section class="vhx2 relative">
+    <div class="pin overflow-hidden">
+      <div class="absolute inset-0">
+        <div class="frame is-active" id="f1">
+          <div class="w-full h-full grid place-items-center">
+            <div class="text-center px-6">
+              <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Cross‑border M&amp;A</h3>
+              <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Advising on mergers, acquisitions, and divestitures with structures that work in both the U.S. and Latin America.</p>
+            </div>
+          </div>
+        </div>
+        <div class="frame" id="f2">
+          <div class="w-full h-full grid place-items-center">
+            <div class="text-center px-6">
+              <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Business Development</h3>
+              <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Introductions to strategic clients, partners, and capital through a trusted, long‑standing network.</p>
+            </div>
+          </div>
+        </div>
+        <div class="frame" id="f3">
+          <div class="w-full h-full grid place-items-center">
+            <div class="text-center px-6">
+              <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Operational Consulting</h3>
+              <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Hands‑on execution in finance, org design, and KPI systems to scale performance responsibly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Our Approach -->
-  <section class="py-12 md:py-16">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold text-white drop-shadow-md">Our Approach</h2>
-      <ul class="mt-6 grid gap-3 text-white/90 drop-shadow-md">
-        <li><strong>Independent</strong> – We are not tied to a single fund, bank, or group, ensuring full alignment with client outcomes.</li>
-        <li><strong>Cross-Border Expertise</strong> – Deep understanding of U.S. and Latin American business landscape.</li>
-        <li><strong>Hands-On</strong> – We don’t just advise; we help implement structures and processes that endure.</li>
-        <li><strong>Trusted Network</strong> – Long-standing relationships with entrepreneurs, family offices, and corporates across multiple geographies.</li>
-      </ul>
+  <!-- Scene 3: Our Approach (cards slide up as you scroll) -->
+  <section class="py-24 parallax">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold text-white drop-shadow-md">Our Approach</h2>
+      <div class="mt-8 grid md:grid-cols-2 gap-6">
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+          <h3 class="font-medium text-white drop-shadow-md">Independent</h3>
+          <p class="mt-2">Not tied to any single fund, bank, or group — fully aligned with client outcomes.</p>
+        </div>
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+          <h3 class="font-medium text-white drop-shadow-md">Cross‑Border Expertise</h3>
+          <p class="mt-2">Deep understanding of U.S. and Latin American regulatory and operating environments.</p>
+        </div>
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+          <h3 class="font-medium text-white drop-shadow-md">Hands‑On</h3>
+          <p class="mt-2">We don’t just advise; we help implement structures and processes that endure.</p>
+        </div>
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+          <h3 class="font-medium text-white drop-shadow-md">Trusted Network</h3>
+          <p class="mt-2">Relationships with entrepreneurs, family offices, and corporates across multiple geographies.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-12 md:py-16">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold text-white drop-shadow-md">Contact</h2>
-      <p class="mt-3 text-white/90 drop-shadow-md">
-        Email us at <a class="underline" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.
-      </p>
+  <section id="contact" class="py-24">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold text-white drop-shadow-md">Contact</h2>
+      <p class="mt-3 text-white/90 drop-shadow-md">Email us at <a class="underline text-white" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.</p>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-700 bg-black/70">
+  <footer class="border-t border-white/10 bg-[color:var(--brand-ink)]/80">
     <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-white/80 flex items-center justify-between gap-3">
       <p>© <span id="year"></span> Anicca Holdings LLC. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Parallax reveal using IntersectionObserver
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.parentElement.classList.add('in-view'); }
+      });
+    },{threshold:0.2});
+    document.querySelectorAll('.parallax').forEach(sec=> io.observe(sec));
+
+    // Pinned crossfade stack (Apple-like section)
+    const stackSection = document.querySelector('.vhx2');
+    const frames = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
+
+    function updateStack(){
+      const rect = stackSection.getBoundingClientRect();
+      const start = rect.top + window.scrollY; // section top in page coords
+      const height = stackSection.offsetHeight - window.innerHeight; // scrollable distance while pinned
+      const p = Math.min(1, Math.max(0, (window.scrollY - start) / (height || 1)));
+      // 3 frames: 0-0.33, 0.33-0.66, 0.66-1
+      const idx = Math.min(frames.length-1, Math.floor(p * frames.length));
+      frames.forEach((f,i)=> f.classList.toggle('is-active', i===idx));
+      requestAnimationFrame(()=>{}); // keep things smooth in some browsers
+    }
+
+    function onScroll(){ updateStack(); }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', updateStack);
+    updateStack();
   </script>
 </body>
 </html>
