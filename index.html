@@ -14,14 +14,15 @@
   <style>
     :root{
       --brand:#78d2b1; /* corporate light green */
-      --brand-ink:#0f2f25; /* deep green for text accents */
+      --ink:#0f2f25;   /* deep green for accents */
     }
-    /* anchor offset for sticky header */
+    /* Anchor offset for sticky header */
     :target::before { content: ""; display: block; height: 120px; margin-top: -120px; }
 
-    /* Prefer-reduced-motion: fallbacks */
+    /* Motion safety */
     @media (prefers-reduced-motion: reduce) {
-      .motion-ok{ display:none !important; }
+      #bg-video { display:none !important; }
+      body { background:#0f172a; }
     }
 
     /* Scrollytelling helpers */
@@ -29,27 +30,29 @@
     .vh { height: 100vh; }
     .vhx2 { height: 200vh; }
 
-    .frame { position:absolute; inset:0; opacity:0; transform:scale(1.08); transition:opacity .6s ease, transform .8s ease; }
+    /* Crossfade frames */
+    .frame { position:absolute; inset:0; opacity:0; transform:scale(1.06); transition: opacity .6s ease, transform .8s ease; }
     .frame.is-active{ opacity:1; transform:scale(1); }
 
-    .parallax [data-parallax]{ transform: translateY(24px); opacity:.001; transition: transform .9s cubic-bezier(.2,.65,.2,1), opacity .9s ease; }
-    .parallax .in-view [data-parallax]{ transform: translateY(0); opacity:1; }
+    /* Parallax reveal */
+    .parallax [data-parallax]{ transform: translateY(24px); opacity:0; transition: transform .9s cubic-bezier(.2,.65,.2,1), opacity .9s ease; }
+    .parallax.in-view [data-parallax]{ transform: translateY(0); opacity:1; }
   </style>
 </head>
 <body class="antialiased text-slate-800 bg-white">
 
-  <!-- Full-page Background Video (behind everything) -->
-  <video id="bg-video" class="fixed inset-0 w-full h-full object-cover -z-10 motion-ok" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
+  <!-- Background video behind everything -->
+  <video id="bg-video" class="fixed inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
     <source src="/assets/hero.mp4" type="video/mp4" />
   </video>
-  <!-- Strong overlay for readability -->
+  <!-- Strong overlay for readability (tuned darker) -->
   <div class="fixed inset-0 -z-10 pointer-events-none">
     <div class="absolute inset-0 bg-black/60 md:bg-black/50"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70"></div>
   </div>
 
-  <!-- Sticky global header with brand tone -->
-  <header class="sticky top-0 z-40 backdrop-blur bg-[color:var(--brand-ink)]/80 border-b border-white/10">
+  <!-- Sticky global header -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-black/70 border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between text-white">
       <a href="#top" class="flex items-center gap-2 font-semibold drop-shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
@@ -66,10 +69,10 @@
     </div>
   </header>
 
-  <!-- Scene 1: About (parallax reveals) -->
-  <section id="about" class="py-24 parallax">
+  <!-- About -->
+  <section id="about" class="py-14 parallax">
     <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-white drop-shadow-md">About Us</h2>
+      <h2 class="text-4xl font-semibold text-white drop-shadow-md" data-parallax>About Us</h2>
       <div class="mt-6 grid md:grid-cols-2 gap-8">
         <p class="text-white/90 leading-7 drop-shadow-md" data-parallax>
           Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective.
@@ -81,8 +84,8 @@
     </div>
   </section>
 
-  <!-- Scene 2: Pinned stack (images/videos crossfade like Apple sections) -->
-  <section class="vhx2 relative">
+  <!-- Pinned stack: chapters crossfade as you scroll -->
+  <section id="stack" class="vhx2 relative">
     <div class="pin overflow-hidden">
       <div class="absolute inset-0">
         <div class="frame is-active" id="f1">
@@ -113,12 +116,10 @@
     </div>
   </section>
 
-  <!-- Scene 2.5: Scroll‑scrubbed chapter (Apple‑style) -->
+  <!-- Scroll‑scrubbed chapter (optional video) -->
   <section id="scrub" class="vhx2 relative">
     <div class="pin overflow-hidden grid place-items-center">
-      <!-- Scrubbed video (preferred). Upload /assets/scrub.mp4 or it will fallback to hero.mp4 -->
       <video id="scrubVideo" class="absolute inset-0 w-full h-full object-cover" playsinline muted preload="auto"></video>
-      <!-- Overlayed copy that fades in at the end of the scrub -->
       <div id="scrubCopy" class="relative z-10 text-center px-6 opacity-0 transition-opacity duration-700">
         <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Scroll to Explore</h3>
         <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Chaptered storytelling that responds to your scroll — the media timeline maps to your progress.</p>
@@ -126,24 +127,24 @@
     </div>
   </section>
 
-  <!-- Scene 3: Our Approach (cards slide up as you scroll) -->
-  <section class="py-24 parallax">
+  <!-- Our Approach -->
+  <section id="approach" class="py-14 parallax">
     <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-white drop-shadow-md">Our Approach</h2>
+      <h2 class="text-4xl font-semibold text-white drop-shadow-md" data-parallax>Our Approach</h2>
       <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
           <h3 class="font-medium text-white drop-shadow-md">Independent</h3>
           <p class="mt-2">Not tied to any single fund, bank, or group — fully aligned with client outcomes.</p>
         </div>
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
           <h3 class="font-medium text-white drop-shadow-md">Cross‑Border Expertise</h3>
           <p class="mt-2">Deep understanding of U.S. and Latin American regulatory and operating environments.</p>
         </div>
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
           <h3 class="font-medium text-white drop-shadow-md">Hands‑On</h3>
           <p class="mt-2">We don’t just advise; we help implement structures and processes that endure.</p>
         </div>
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--brand-ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
+        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
           <h3 class="font-medium text-white drop-shadow-md">Trusted Network</h3>
           <p class="mt-2">Relationships with entrepreneurs, family offices, and corporates across multiple geographies.</p>
         </div>
@@ -152,14 +153,14 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-24">
+  <section id="contact" class="py-14 parallax">
     <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-white drop-shadow-md">Contact</h2>
-      <p class="mt-3 text-white/90 drop-shadow-md">Email us at <a class="underline text-white" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.</p>
+      <h2 class="text-4xl font-semibold text-white drop-shadow-md" data-parallax>Contact</h2>
+      <p class="mt-3 text-white/90 drop-shadow-md" data-parallax>Email us at <a class="underline text-white" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.</p>
     </div>
   </section>
 
-  <footer class="border-t border-white/10 bg-[color:var(--brand-ink)]/80">
+  <footer class="border-t border-white/10 bg-black/70">
     <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-white/80 flex items-center justify-between gap-3">
       <p>© <span id="year"></span> Anicca Holdings LLC. All rights reserved.</p>
     </div>
@@ -169,113 +170,72 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Parallax reveal using IntersectionObserver
+    // Parallax reveal: add .in-view to the SECTION itself (bugfix)
+    const parallaxSections = document.querySelectorAll('.parallax');
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.parentElement.classList.add('in-view'); }
-      });
-    },{threshold:0.2});
-    document.querySelectorAll('.parallax').forEach(sec=> io.observe(sec));
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); } });
+    },{threshold:0.15});
+    parallaxSections.forEach(sec=> io.observe(sec));
 
-    // Pinned crossfade stack (Apple-like section)
-    const stackSection = document.querySelector('.vhx2');
-    const frames = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
-
-    function updateStack(){
-      const rect = stackSection.getBoundingClientRect();
-      const start = rect.top + window.scrollY; // section top in page coords
-      const height = stackSection.offsetHeight - window.innerHeight; // scrollable distance while pinned
-      const p = Math.min(1, Math.max(0, (window.scrollY - start) / (height || 1)));
-      // 3 frames: 0-0.33, 0.33-0.66, 0.66-1
-      const idx = Math.min(frames.length-1, Math.floor(p * frames.length));
-      frames.forEach((f,i)=> f.classList.toggle('is-active', i===idx));
-      requestAnimationFrame(()=>{}); // keep things smooth in some browsers
-    }
-
-    function onScroll(){ updateStack(); }
-    window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', updateStack);
-    updateStack();
-  </script>
-  <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Parallax reveal using IntersectionObserver
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.parentElement.classList.add('in-view'); } });
-    },{threshold:0.2});
-    document.querySelectorAll('.parallax').forEach(sec=> io.observe(sec));
-
-    // Pinned crossfade stack (Apple-like section)
-    const stackSection = document.querySelector('.vhx2');
+    // Crossfade stack tied to #stack only (bugfix: avoid grabbing the wrong section)
+    const stackSection = document.getElementById('stack');
     const frames = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
     function updateStack(){
       if(!stackSection) return;
-      const rect = stackSection.getBoundingClientRect();
-      const start = rect.top + window.scrollY;
+      const rectTop = stackSection.getBoundingClientRect().top + window.scrollY;
       const height = stackSection.offsetHeight - window.innerHeight;
-      const p = Math.min(1, Math.max(0, (window.scrollY - start) / (height || 1)));
+      const p = Math.min(1, Math.max(0, (window.scrollY - rectTop) / Math.max(1,height)));
       const idx = Math.min(frames.length-1, Math.floor(p * frames.length));
-      frames.forEach((f,i)=> f && f.classList.toggle('is-active', i===idx));
+      frames.forEach((f,i)=>{ if(f) f.classList.toggle('is-active', i===idx); });
     }
-    window.addEventListener('scroll', ()=>{ updateStack(); updateScrub(); }, {passive:true});
-    window.addEventListener('resize', ()=>{ updateStack(); updateScrub(); });
-    updateStack();
 
-    // === Scroll‑scrubbed video ===
+    // Scroll‑scrubbed video mapped to #scrub only
     const scrubSection = document.getElementById('scrub');
     const scrubVideo = document.getElementById('scrubVideo');
     const scrubCopy  = document.getElementById('scrubCopy');
 
-    // Pick a source: prefer /assets/scrub.mp4 if it exists, else use hero.mp4
-    const testSrc = '/assets/scrub.mp4';
-    // We attempt to fetch HEAD; if it fails, fallback.
-    fetch(testSrc, {method:'HEAD'}).then(r=>{
-      const src = r.ok ? testSrc : '/assets/hero.mp4';
-      const source = document.createElement('source');
-      source.src = src; source.type = 'video/mp4';
-      scrubVideo.appendChild(source);
-      scrubVideo.load();
-    }).catch(()=>{
-      const source = document.createElement('source');
-      source.src = '/assets/hero.mp4'; source.type = 'video/mp4';
-      scrubVideo.appendChild(source);
-      scrubVideo.load();
-    });
+    // Prefer /assets/scrub.mp4; fallback to hero.mp4 without throwing
+    (async () => {
+      try {
+        const r = await fetch('/assets/scrub.mp4', {method:'HEAD'});
+        const src = document.createElement('source');
+        src.src = (r && r.ok) ? '/assets/scrub.mp4' : '/assets/hero.mp4';
+        src.type = 'video/mp4';
+        scrubVideo.appendChild(src);
+        scrubVideo.load();
+      } catch(err){
+        const src = document.createElement('source');
+        src.src = '/assets/hero.mp4'; src.type = 'video/mp4';
+        scrubVideo.appendChild(src);
+        scrubVideo.load();
+      }
+    })();
 
-    // Map scroll progress within the section to video currentTime
     function sectionProgress(section){
-      const rect = section.getBoundingClientRect();
-      const start = rect.top + window.scrollY;
+      const start = section.getBoundingClientRect().top + window.scrollY;
       const height = section.offsetHeight - window.innerHeight;
-      return Math.min(1, Math.max(0, (window.scrollY - start) / (height || 1)));
+      return Math.min(1, Math.max(0, (window.scrollY - start) / Math.max(1,height)));
     }
 
     let canScrub = false;
-    scrubVideo.addEventListener('loadedmetadata', ()=>{ canScrub = true; updateScrub(); });
+    if (scrubVideo) {
+      scrubVideo.addEventListener('loadedmetadata', ()=>{ canScrub = true; updateScrub(); });
+    }
 
     function updateScrub(){
-      if(!scrubSection || !canScrub) return;
+      if(!scrubSection || !scrubVideo || !canScrub) return;
       const p = sectionProgress(scrubSection);
       const dur = scrubVideo.duration || 1;
-      // Ease the mapping so movement feels premium
-      const eased = p * p * (3 - 2*p); // smoothstep
+      const eased = p * p * (3 - 2*p); // smoothstep easing
       scrubVideo.currentTime = Math.min(dur - 0.05, Math.max(0, eased * dur));
-      // Fade in copy at end of scrub
-      if (p > 0.85) scrubCopy.style.opacity = 1; else scrubCopy.style.opacity = 0;
-      // Prevent autoplaying; we strictly control time with currentTime
+      scrubCopy.style.opacity = (p > 0.85) ? 1 : 0;
       if (!scrubVideo.paused) scrubVideo.pause();
     }
 
-    // Pause when out of view to reduce CPU
-    const scrubIO = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(!e.isIntersecting && !scrubVideo.paused){ scrubVideo.pause(); }
-      });
-    },{threshold:0});
-    if(scrubSection) scrubIO.observe(scrubSection);
+    function onScroll(){ updateStack(); updateScrub(); }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', ()=>{ updateStack(); updateScrub(); });
+    updateStack(); updateScrub();
   </script>
 </body>
-</html>
 </html>
