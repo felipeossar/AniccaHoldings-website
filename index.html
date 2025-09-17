@@ -113,6 +113,19 @@
     </div>
   </section>
 
+  <!-- Scene 2.5: Scroll‑scrubbed chapter (Apple‑style) -->
+  <section id="scrub" class="vhx2 relative">
+    <div class="pin overflow-hidden grid place-items-center">
+      <!-- Scrubbed video (preferred). Upload /assets/scrub.mp4 or it will fallback to hero.mp4 -->
+      <video id="scrubVideo" class="absolute inset-0 w-full h-full object-cover" playsinline muted preload="auto"></video>
+      <!-- Overlayed copy that fades in at the end of the scrub -->
+      <div id="scrubCopy" class="relative z-10 text-center px-6 opacity-0 transition-opacity duration-700">
+        <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Scroll to Explore</h3>
+        <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Chaptered storytelling that responds to your scroll — the media timeline maps to your progress.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Scene 3: Our Approach (cards slide up as you scroll) -->
   <section class="py-24 parallax">
     <div class="max-w-5xl mx-auto px-4">
@@ -184,5 +197,85 @@
     window.addEventListener('resize', updateStack);
     updateStack();
   </script>
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Parallax reveal using IntersectionObserver
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.parentElement.classList.add('in-view'); } });
+    },{threshold:0.2});
+    document.querySelectorAll('.parallax').forEach(sec=> io.observe(sec));
+
+    // Pinned crossfade stack (Apple-like section)
+    const stackSection = document.querySelector('.vhx2');
+    const frames = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
+    function updateStack(){
+      if(!stackSection) return;
+      const rect = stackSection.getBoundingClientRect();
+      const start = rect.top + window.scrollY;
+      const height = stackSection.offsetHeight - window.innerHeight;
+      const p = Math.min(1, Math.max(0, (window.scrollY - start) / (height || 1)));
+      const idx = Math.min(frames.length-1, Math.floor(p * frames.length));
+      frames.forEach((f,i)=> f && f.classList.toggle('is-active', i===idx));
+    }
+    window.addEventListener('scroll', ()=>{ updateStack(); updateScrub(); }, {passive:true});
+    window.addEventListener('resize', ()=>{ updateStack(); updateScrub(); });
+    updateStack();
+
+    // === Scroll‑scrubbed video ===
+    const scrubSection = document.getElementById('scrub');
+    const scrubVideo = document.getElementById('scrubVideo');
+    const scrubCopy  = document.getElementById('scrubCopy');
+
+    // Pick a source: prefer /assets/scrub.mp4 if it exists, else use hero.mp4
+    const testSrc = '/assets/scrub.mp4';
+    // We attempt to fetch HEAD; if it fails, fallback.
+    fetch(testSrc, {method:'HEAD'}).then(r=>{
+      const src = r.ok ? testSrc : '/assets/hero.mp4';
+      const source = document.createElement('source');
+      source.src = src; source.type = 'video/mp4';
+      scrubVideo.appendChild(source);
+      scrubVideo.load();
+    }).catch(()=>{
+      const source = document.createElement('source');
+      source.src = '/assets/hero.mp4'; source.type = 'video/mp4';
+      scrubVideo.appendChild(source);
+      scrubVideo.load();
+    });
+
+    // Map scroll progress within the section to video currentTime
+    function sectionProgress(section){
+      const rect = section.getBoundingClientRect();
+      const start = rect.top + window.scrollY;
+      const height = section.offsetHeight - window.innerHeight;
+      return Math.min(1, Math.max(0, (window.scrollY - start) / (height || 1)));
+    }
+
+    let canScrub = false;
+    scrubVideo.addEventListener('loadedmetadata', ()=>{ canScrub = true; updateScrub(); });
+
+    function updateScrub(){
+      if(!scrubSection || !canScrub) return;
+      const p = sectionProgress(scrubSection);
+      const dur = scrubVideo.duration || 1;
+      // Ease the mapping so movement feels premium
+      const eased = p * p * (3 - 2*p); // smoothstep
+      scrubVideo.currentTime = Math.min(dur - 0.05, Math.max(0, eased * dur));
+      // Fade in copy at end of scrub
+      if (p > 0.85) scrubCopy.style.opacity = 1; else scrubCopy.style.opacity = 0;
+      // Prevent autoplaying; we strictly control time with currentTime
+      if (!scrubVideo.paused) scrubVideo.pause();
+    }
+
+    // Pause when out of view to reduce CPU
+    const scrubIO = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting && !scrubVideo.paused){ scrubVideo.pause(); }
+      });
+    },{threshold:0});
+    if(scrubSection) scrubIO.observe(scrubSection);
+  </script>
 </body>
+</html>
 </html>
