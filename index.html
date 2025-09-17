@@ -13,42 +13,65 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :target::before { content: ""; display: block; height: 120px; margin-top: -120px; }
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      #bg-video { display: none; }
+      body { background: #0f172a; }
+    }
   </style>
 </head>
 <body class="antialiased text-slate-800">
-  <!-- Sticky Header (always visible with title + subtitle) -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+
+  <!-- Background video -->
+  <video id="bg-video" class="fixed inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
+    <source src="/assets/hero.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Dark overlay with gradient -->
+  <div class="fixed inset-0 -z-10 pointer-events-none">
+    <div class="absolute inset-0 bg-black/60 md:bg-black/50"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70"></div>
+  </div>
+
+  <!-- Sticky header -->
+  <header class="sticky top-0 z-40 bg-black/70 backdrop-blur border-b border-slate-700">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-2 font-semibold text-slate-900">
+      <a href="#top" class="flex items-center gap-2 font-semibold text-white drop-shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
         <span>Anicca Holdings</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#about" class="hover:text-slate-900">About</a>
-        <a href="#contact" class="hover:text-slate-900">Contact</a>
+        <a href="#about" class="text-white hover:text-gray-200 drop-shadow-md">About</a>
+        <a href="#contact" class="text-white hover:text-gray-200 drop-shadow-md">Contact</a>
       </nav>
     </div>
     <div class="max-w-6xl mx-auto px-4 pb-4">
-      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">Anicca Holdings LLC</h1>
-      <p class="mt-1 md:mt-2 text-base md:text-lg text-slate-700">Independent advisory and investment platform connecting Latin America with global opportunities.</p>
+      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white drop-shadow-md">Anicca Holdings LLC</h1>
+      <p class="mt-1 md:mt-2 text-base md:text-lg text-white/90 drop-shadow-md">
+        Independent advisory and investment platform connecting Latin America with global opportunities.
+      </p>
     </div>
   </header>
 
-  <!-- About (full-width) -->
+  <!-- About -->
   <section id="about" class="py-12 md:py-16">
     <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold">About Us</h2>
-      <p class="mt-4 leading-7">Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective.</p>
-      <p class="mt-4 leading-7">Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver results that are sustainable, compliant, and growth-oriented.</p>
+      <h2 class="text-3xl font-semibold text-white drop-shadow-md">About Us</h2>
+      <p class="mt-4 leading-7 text-white/90 drop-shadow-md">
+        Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective.
+      </p>
+      <p class="mt-4 leading-7 text-white/90 drop-shadow-md">
+        Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver results that are sustainable, compliant, and growth-oriented.
+      </p>
     </div>
   </section>
 
-  <!-- What We Do (full-width) -->
-  <section class="py-12 md:py-16 bg-slate-50">
+  <!-- What We Do -->
+  <section class="py-12 md:py-16">
     <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold">What We Do</h2>
-      <ul class="mt-6 space-y-3 text-slate-700">
-        <li><strong>M&A Advisory & Structuring</strong> – Advising on cross-border mergers, acquisitions, and divestitures, with a focus on maximizing value.</li>
+      <h2 class="text-3xl font-semibold text-white drop-shadow-md">What We Do</h2>
+      <ul class="mt-6 space-y-3 text-white/90 drop-shadow-md">
+        <li><strong>M&amp;A Advisory &amp; Structuring</strong> – Advising on cross-border mergers, acquisitions, and divestitures, with a focus on maximizing value.</li>
         <li><strong>Business Development</strong> – Identifying and introducing strategic clients, partners, and investors throughout the U.S. and Latin America.</li>
         <li><strong>Management Consulting</strong> – Providing operational and financial advisory to support expansion, restructuring, and performance improvement.</li>
         <li><strong>Investing</strong> – Deploying capital selectively into opportunities in Latin America and the U.S., with a focus on strategic, long-term value creation.</li>
@@ -56,11 +79,11 @@
     </div>
   </section>
 
-  <!-- Our Approach (full-width) -->
+  <!-- Our Approach -->
   <section class="py-12 md:py-16">
     <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold">Our Approach</h2>
-      <ul class="mt-6 grid gap-3 text-slate-700">
+      <h2 class="text-3xl font-semibold text-white drop-shadow-md">Our Approach</h2>
+      <ul class="mt-6 grid gap-3 text-white/90 drop-shadow-md">
         <li><strong>Independent</strong> – We are not tied to a single fund, bank, or group, ensuring full alignment with client outcomes.</li>
         <li><strong>Cross-Border Expertise</strong> – Deep understanding of U.S. and Latin American business landscape.</li>
         <li><strong>Hands-On</strong> – We don’t just advise; we help implement structures and processes that endure.</li>
@@ -69,16 +92,19 @@
     </div>
   </section>
 
-  <!-- Contact (email only) -->
-  <section id="contact" class="py-12 md:py-16 bg-slate-50">
+  <!-- Contact -->
+  <section id="contact" class="py-12 md:py-16">
     <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold">Contact</h2>
-      <p class="mt-3 text-slate-700">Email us at <a class="underline" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.</p>
+      <h2 class="text-3xl font-semibold text-white drop-shadow-md">Contact</h2>
+      <p class="mt-3 text-white/90 drop-shadow-md">
+        Email us at <a class="underline" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.
+      </p>
     </div>
   </section>
 
-  <footer class="border-t">
-    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-slate-600 flex items-center justify-between gap-3">
+  <!-- Footer -->
+  <footer class="border-t border-slate-700 bg-black/70">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-white/80 flex items-center justify-between gap-3">
       <p>© <span id="year"></span> Anicca Holdings LLC. All rights reserved.</p>
     </div>
   </footer>
@@ -86,9 +112,5 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
-  <!-- Cloudflare Web Analytics (optional): replace token below once you enable it)
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR-TOKEN-HERE"}'></script>
-  -->
 </body>
 </html>
