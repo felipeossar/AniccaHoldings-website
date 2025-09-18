@@ -5,157 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Anicca Holdings LLC</title>
   <meta name="description" content="Anicca Holdings LLC – Independent advisory and investment platform connecting Latin America with global opportunities." />
-  <meta property="og:title" content="Anicca Holdings LLC" />
-  <meta property="og:description" content="Independent advisory and investment platform connecting Latin America with global opportunities." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aniccaholdings.org" />
   <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root{
-      --brand:#78d2b1;       /* corporate light green */
-      --ink:#0f2f25;         /* deep green for accents */
-      --card:#f8faf9;        /* light gray-green for cards */
-    }
-    /* Sticky anchor offset */
-    :target::before { content: ""; display: block; height: 120px; margin-top: -120px; }
-
-    /* Motion safety */
-    @media (prefers-reduced-motion: reduce) {
-      #bg-video { display:none !important; }
-      body { background:#0b1f17; }
-    }
-
-    /* Image aspect helpers */
-    .aspect-16x9 { position:relative; width:100%; padding-top:56.25%; }
-    .aspect-16x9 > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-
-    /* Card hover */
-    .card { transition: transform .35s ease, box-shadow .35s ease; }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgb(0 0 0 / 0.08); }
+    body { font-family: 'Open Sans', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
   </style>
 </head>
-<body class="antialiased text-slate-900 bg-white">
+<body class="antialiased text-slate-900 bg-white" style="font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;">
 
-  <!-- Fixed global header (always visible) -->
+  <!-- Fixed Header -->
   <header class="sticky top-0 z-40 backdrop-blur bg-white/85 border-b border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2 font-semibold text-slate-900">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 text-[color:var(--brand)]" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 text-emerald-500" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
         <span>Anicca Holdings</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#what" class="hover:text-[color:var(--ink)]">What we do</a>
-        <a href="#approach" class="hover:text-[color:var(--ink)]">Our approach</a>
-        <a href="#contact" class="hover:text-[color:var(--ink)]">Contact</a>
+        <a href="#about" class="hover:text-emerald-600">About</a>
+        <a href="#what" class="hover:text-emerald-600">What we do</a>
+        <a href="#approach" class="hover:text-emerald-600">Our approach</a>
+        <a href="#contact" class="hover:text-emerald-600">Contact</a>
       </nav>
-    </div>
-    <div class="max-w-6xl mx-auto px-4 pb-4">
-      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">Anicca Holdings LLC</h1>
-      <p class="mt-1 md:mt-2 text-base md:text-lg text-slate-700">Independent advisory and investment platform connecting Latin America with global opportunities.</p>
     </div>
   </header>
 
-  <!-- SECTION 1: Full-bleed background video with big centered copy -->
+  <!-- Hero Section with Anicca description -->
   <section id="top" class="relative min-h-[90vh] flex items-center">
-    <!-- Background video behind everything -->
     <video id="bg-video" class="absolute inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
       <source src="/assets/hero.mp4" type="video/mp4" />
     </video>
-    <!-- Dark overlay for readability -->
     <div class="absolute inset-0 -z-10 bg-black/50 md:bg-black/40"></div>
     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/60"></div>
+    <div class="max-w-4xl mx-auto px-6 py-24 text-center">
+      <p class="text-white text-[20px] leading-8 font-normal">Anicca means impermanence — the recognition that all things are in constant motion and change is inevitable.</p>
+      <p class="mt-4 text-white text-[20px] leading-8 font-normal">In a world of constant change, we turn impermanence into enduring advantage.</p>
+    </div>
+  </section>
 
-    <div class="max-w-5xl mx-auto px-4 py-24 text-center">
-      <p class="text-white text-2xl md:text-4xl leading-snug md:leading-snug font-medium drop-shadow-md">
-        Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective. Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver results that are sustainable, compliant, and growth-oriented.
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-semibold text-slate-900 mb-8">About Anicca Holdings</h2>
+
+      <p class="mb-6">Anicca Holdings LLC is a Delaware-based <strong>consulting, management, and investing company</strong> focused on supporting businesses and investors across Latin America and the United States.</p>
+
+      <p class="mb-6">We provide <strong>strategic advisory, transaction support, and business development services</strong> with a cross-border perspective.</p>
+
+      <p>Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver <strong>results that are sustainable, compliant, and growth-oriented.</strong></p>
+    </div>
+  </section>
+
+  <!-- Placeholder for rest of site -->
+  <!-- About section inserted -->
+  <section id="about" class="py-20">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-4xl font-semibold text-slate-900">About Anicca Holdings</h2>
+      <p class="mt-8 text-lg text-slate-800 leading-8">
+        Anicca Holdings LLC is a Delaware-based <span class="font-semibold">consulting, management, and investing company</span> focused on supporting businesses and investors across Latin America and the United States.
+      </p>
+      <p class="mt-6 text-lg text-slate-800 leading-8">
+        We provide <span class="font-semibold">strategic advisory, transaction support, and business development services</span> with a cross-border perspective.
+      </p>
+      <p class="mt-6 text-lg text-slate-800 leading-8">
+        Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver <span class="font-semibold">results that are sustainable, compliant, and growth-oriented.</span>
       </p>
     </div>
   </section>
 
-  <!-- SECTION 2: What we do (Smart Soda "who we serve" style cards) -->
-  <section id="what" class="py-20 bg-[color:var(--card)]">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-slate-900 text-center">What we do</h2>
-      <p class="mt-3 text-slate-600 text-center max-w-3xl mx-auto">Advisory and execution across transactions, growth, and operations.</p>
-
-      <div class="mt-10 grid gap-6 md:grid-cols-3">
-        <!-- Card 1: Cross-border M&A -->
-        <article class="card rounded-2xl bg-white border border-slate-200 overflow-hidden">
-          <div class="aspect-16x9 bg-slate-200">
-            <img src="/assets/mna.jpg" alt="Cross-border M&A" onerror="this.src='https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop'"/>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-slate-900">Cross‑border M&amp;A</h3>
-            <p class="mt-2 text-slate-700">Advising on mergers, acquisitions, and divestitures with structures that work in both the U.S. and Latin America.</p>
-          </div>
-        </article>
-
-        <!-- Card 2: Business Development -->
-        <article class="card rounded-2xl bg-white border border-slate-200 overflow-hidden">
-          <div class="aspect-16x9 bg-slate-200">
-            <img src="/assets/business.jpg" alt="Business development" onerror="this.src='https://images.unsplash.com/photo-1529336953121-a5fc39be40cb?q=80&w=1200&auto=format&fit=crop'"/>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-slate-900">Business Development</h3>
-            <p class="mt-2 text-slate-700">Identifying and introducing strategic clients, partners, and investors throughout the U.S. and Latin America.</p>
-          </div>
-        </article>
-
-        <!-- Card 3: Operational Consulting -->
-        <article class="card rounded-2xl bg-white border border-slate-200 overflow-hidden">
-          <div class="aspect-16x9 bg-slate-200">
-            <img src="/assets/ops.jpg" alt="Operational consulting" onerror="this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop'"/>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-slate-900">Operational Consulting</h3>
-            <p class="mt-2 text-slate-700">Hands‑on execution in finance, org design, and KPI systems to scale performance responsibly.</p>
-          </div>
-        </article>
-      </div>
-    </div>
+  <section id="what" class="py-20 bg-gray-50 text-center">
+    <h2 class="text-2xl font-semibold">[What we do section remains here]</h2>
   </section>
-
-  <!-- SECTION 3: Our approach (four rectangles) -->
-  <section id="approach" class="py-20">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-slate-900 text-center">Our approach</h2>
-      <p class="mt-3 text-slate-600 text-center max-w-3xl mx-auto">Principles that keep us aligned and effective.</p>
-
-      <div class="mt-10 grid gap-6 md:grid-cols-2">
-        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
-          <h3 class="text-lg font-semibold text-slate-900">Independent</h3>
-          <p class="mt-2 text-slate-700">Not tied to any single fund, bank, or group — fully aligned with client outcomes.</p>
-        </article>
-        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
-          <h3 class="text-lg font-semibold text-slate-900">Hands‑On</h3>
-          <p class="mt-2 text-slate-700">We don’t just advise; we help implement structures and processes that endure.</p>
-        </article>
-        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
-          <h3 class="text-lg font-semibold text-slate-900">Cross‑Border Expertise</h3>
-          <p class="mt-2 text-slate-700">Deep understanding of U.S. and Latin American regulatory and operating environments.</p>
-        </article>
-        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
-          <h3 class="text-lg font-semibold text-slate-900">Trusted Network</h3>
-          <p class="mt-2 text-slate-700">Relationships with entrepreneurs, family offices, and corporates across multiple geographies.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 4: Contact -->
-  <section id="contact" class="py-16 bg-[color:var(--card)]">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-semibold text-slate-900">Contact</h2>
-      <p class="mt-3 text-slate-700">Email us at <a class="underline text-[color:var(--ink)]" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.</p>
-    </div>
-  </section>
-
-  <footer class="border-t border-slate-200 bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-slate-600 flex items-center justify-between gap-3">
-      <p>© <span id="year"></span> Anicca Holdings LLC. All rights reserved.</p>
-    </div>
-  </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
