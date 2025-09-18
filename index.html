@@ -10,18 +10,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-snap-type: y mandatory; }
+    section { scroll-snap-align: start; }
+  </style>
 </head>
-<body class="antialiased text-slate-900 bg-white" style="font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;">
+<body class="antialiased text-slate-900 bg-white snap-y snap-mandatory" style="font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;">
+
+<!-- FIXED HEADER -->
+<header class="fixed top-0 left-0 right-0 bg-white shadow z-50">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-semibold">Anicca Holdings</h1>
+    <nav class="space-x-6">
+      <a href="#about" class="hover:underline">About</a>
+      <a href="#what" class="hover:underline">What We Do</a>
+      <a href="#approach" class="hover:underline">Our Approach</a>
+      <a href="#contact" class="hover:underline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- FIXED HEADER -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2 font-semibold text-slate-900">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 text-emerald-400" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
+      <span>Anicca Holdings</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+      <a href="#about" class="hover:text-slate-700">About</a>
+      <a href="#what" class="hover:text-slate-700">What we do</a>
+      <a href="#approach" class="hover:text-slate-700">Our approach</a>
+      <a href="#contact" class="hover:text-slate-700">Contact</a>
+    </nav>
+  </div>
+</header>
+<div class="h-[68px]"></div>
 
 <!-- HERO SECTION -->
-<section id="top" class="relative h-screen flex items-center justify-center text-center">
+<section id="top" class="relative h-screen flex items-center justify-center text-center pt-24 snap-start">
   <video id="bg-video" class="absolute inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
     <source src="/assets/hero.mp4" type="video/mp4" />
   </video>
   <div class="absolute inset-0 -z-10 bg-black/30 md:bg-black/20"></div>
   <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-transparent to-black/40"></div>
 
-  <div class="max-w-4xl mx-auto px-6 py-24">
+  <div class="max-w-4xl mx-auto px-6">
     <p class="text-white text-[30px] leading-10 font-normal">Anicca means impermanence — the recognition that all things are in constant motion and change is inevitable.</p>
     <div class="mt-12"></div>
     <p class="text-white text-[30px] leading-10 font-normal">In a world of constant change, we turn impermanence into enduring advantage.</p>
@@ -29,26 +63,26 @@
 </section>
 
 <!-- ABOUT SECTION -->
-<section id="about" class="relative h-screen flex items-center text-white">
+<section id="about" class="relative h-screen flex items-center text-white pt-24 snap-start">
   <img src="/assets/about-bg.jpg" alt="About background" class="absolute inset-0 w-full h-full object-cover -z-10" />
   <div class="absolute inset-0 -z-10 bg-black/40"></div>
 
   <div class="max-w-3xl mx-auto px-6 text-center">
     <h2 class="text-4xl font-semibold">About Anicca Holdings</h2>
-    <p class="mt-8 text-xl leading-9">
+    <p class="mt-8 text-2xl leading-9">
       Anicca Holdings LLC is a Delaware-based <span class="font-semibold">consulting, management, and investing company</span> focused on supporting businesses and investors across Latin America and the United States.
     </p>
-    <p class="mt-6 text-xl leading-9">
+    <p class="mt-6 text-2xl leading-9">
       We provide <span class="font-semibold">strategic advisory, transaction support, and business development services</span> with a cross-border perspective.
     </p>
-    <p class="mt-6 text-xl leading-9">
+    <p class="mt-6 text-2xl leading-9">
       Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver <span class="font-semibold">results that are sustainable, compliant, and growth-oriented.</span>
     </p>
   </div>
 </section>
 
 <!-- WHAT WE DO SECTION -->
-<section id="what" class="relative h-screen flex items-center text-white">
+<section id="what" class="relative h-screen flex items-center text-white pt-24 snap-start">
   <img src="/assets/what-bg.jpg" alt="What we do background" class="absolute inset-0 w-full h-full object-cover -z-10" />
   <div class="absolute inset-0 -z-10 bg-black/40"></div>
 
@@ -75,26 +109,26 @@
 </section>
 
 <!-- OUR APPROACH SECTION -->
-<section id="approach" class="relative h-screen flex items-center text-white">
+<section id="approach" class="relative h-screen flex items-center text-white pt-24 snap-start">
   <img src="/assets/approach-bg.jpg" alt="Our approach background" class="absolute inset-0 w-full h-full object-cover -z-10" />
   <div class="absolute inset-0 -z-10 bg-black/40"></div>
 
   <div class="max-w-5xl mx-auto px-6 text-center">
     <h2 class="text-4xl font-semibold">Our Approach</h2>
     <div class="mt-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div class="bg-white/50 text-slate-900 p-6 rounded-xl shadow-lg">
+      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
         <h3 class="text-xl font-semibold">Independent</h3>
         <p class="mt-4 text-base">Not tied to any single fund, bank, or group — ensuring full alignment with client outcomes.</p>
       </div>
-      <div class="bg-white/50 text-slate-900 p-6 rounded-xl shadow-lg">
+      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
         <h3 class="text-xl font-semibold">Cross-Border Expertise</h3>
         <p class="mt-4 text-base">Deep understanding of both U.S. and Latin American markets, enabling tailored strategies.</p>
       </div>
-      <div class="bg-white/50 text-slate-900 p-6 rounded-xl shadow-lg">
+      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
         <h3 class="text-xl font-semibold">Hands-On</h3>
         <p class="mt-4 text-base">We don’t just advise — we help implement structures and processes that endure.</p>
       </div>
-      <div class="bg-white/50 text-slate-900 p-6 rounded-xl shadow-lg">
+      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
         <h3 class="text-xl font-semibold">Trusted Network</h3>
         <p class="mt-4 text-base">Long-standing relationships with entrepreneurs, family offices, and corporates across geographies.</p>
       </div>
@@ -103,7 +137,7 @@
 </section>
 
 <!-- CONTACT SECTION -->
-<section id="contact" class="h-screen flex items-center justify-center bg-slate-900 text-white text-center">
+<section id="contact" class="snap-start py-16 flex items-center justify-center bg-slate-900 text-white text-center">
   <div>
     <h2 class="text-3xl font-semibold">Contact</h2>
     <p class="mt-6">Email us at <a href="mailto:admin@aniccaholdings.org" class="underline">admin@aniccaholdings.org</a></p>
