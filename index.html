@@ -1,34 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anicca Holdings LLC</title>
-  <meta name="description" content="Anicca Holdings LLC – independent advisory and investment platform." />
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    html { scroll-snap-type: y mandatory; }
-    section { scroll-snap-align: start; }
-  </style>
 </head>
-<body class="antialiased text-slate-900 bg-white snap-y snap-mandatory" style="font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;">
-
-<!-- FIXED HEADER -->
-<header class="fixed top-0 left-0 right-0 bg-white shadow z-50">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-semibold">Anicca Holdings</h1>
-    <nav class="space-x-6">
-      <a href="#about" class="hover:underline">About</a>
-      <a href="#what" class="hover:underline">What We Do</a>
-      <a href="#approach" class="hover:underline">Our Approach</a>
-      <a href="#contact" class="hover:underline">Contact</a>
-    </nav>
-  </div>
-</header>
+<body class="snap-y snap-mandatory overflow-y-scroll text-slate-800">
 
 <!-- FIXED HEADER -->
 <header class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
@@ -48,90 +26,74 @@
 <div class="h-[68px]"></div>
 
 <!-- HERO SECTION -->
-<section id="top" class="relative h-screen flex items-center justify-center text-center pt-24 snap-start">
-  <video id="bg-video" class="absolute inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
-    <source src="/assets/hero.mp4" type="video/mp4" />
+<section id="top" class="relative h-screen flex items-center justify-center text-center text-white snap-start">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover brightness-75">
+    <source src="assets/hero.mp4" type="video/mp4">
   </video>
-  <div class="absolute inset-0 -z-10 bg-black/30 md:bg-black/20"></div>
-  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-transparent to-black/40"></div>
-
-  <div class="max-w-4xl mx-auto px-6">
-    <p class="text-white text-[30px] leading-10 font-normal">Anicca means impermanence — the recognition that all things are in constant motion and change is inevitable.</p>
-    <div class="mt-12"></div>
-    <p class="text-white text-[30px] leading-10 font-normal">In a world of constant change, we turn impermanence into enduring advantage.</p>
+  <div class="relative z-10 max-w-3xl px-6">
+    <p class="font-[Open Sans] text-[30px]">Anicca means impermanence — the recognition that all things are in constant motion and change is inevitable.</p>
+    <div class="mb-12"></div>
+    <p class="font-[Open Sans] text-[30px]">In a world of constant change, we turn impermanence into enduring advantage.</p>
   </div>
 </section>
 
 <!-- ABOUT SECTION -->
-<section id="about" class="relative h-screen flex items-center text-white pt-24 snap-start">
-  <img src="/assets/about-bg.jpg" alt="About background" class="absolute inset-0 w-full h-full object-cover -z-10" />
-  <div class="absolute inset-0 -z-10 bg-black/40"></div>
-
-  <div class="max-w-3xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-semibold">About Anicca Holdings</h2>
-    <p class="mt-8 text-2xl leading-9">
-      Anicca Holdings LLC is a Delaware-based <span class="font-semibold">consulting, management, and investing company</span> focused on supporting businesses and investors across Latin America and the United States.
-    </p>
-    <p class="mt-6 text-2xl leading-9">
-      We provide <span class="font-semibold">strategic advisory, transaction support, and business development services</span> with a cross-border perspective.
-    </p>
-    <p class="mt-6 text-2xl leading-9">
-      Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver <span class="font-semibold">results that are sustainable, compliant, and growth-oriented.</span>
-    </p>
+<section id="about" class="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center px-6 snap-start" style="background-image: url('assets/about-bg.jpg')">
+  <h2 class="text-4xl font-bold mb-8">About Anicca Holdings</h2>
+  <div class="max-w-3xl space-y-6 text-[18px]">
+    <p>Anicca Holdings LLC is a Delaware-based <strong>consulting, management, and investing company</strong> focused on supporting businesses and investors across Latin America and the United States.</p>
+    <p>We provide <strong>strategic advisory, transaction support, and business development services</strong> with a cross-border perspective.</p>
+    <p>Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver <strong>results that are sustainable, compliant, and growth-oriented.</strong></p>
   </div>
 </section>
 
 <!-- WHAT WE DO SECTION -->
-<section id="what" class="relative h-screen flex items-center text-white pt-24 snap-start">
-  <img src="/assets/what-bg.jpg" alt="What we do background" class="absolute inset-0 w-full h-full object-cover -z-10" />
-  <div class="absolute inset-0 -z-10 bg-black/40"></div>
-
-  <div class="max-w-5xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-semibold">What We Do</h2>
-    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white/90 text-slate-900 p-6 rounded-xl shadow-lg">
-        <img src="/assets/map.jpg" alt="Cross-border M&A" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h3 class="text-xl font-semibold">Cross-Border M&A</h3>
-        <p class="mt-4 text-base">Advising on mergers, acquisitions, and divestitures across Latin America and the U.S., maximizing value through structured processes.</p>
+<section id="what" class="h-screen flex flex-col items-center justify-center bg-slate-50 text-center px-6 snap-start">
+  <h2 class="text-4xl font-bold mb-12">What We Do</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-6xl w-full">
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+      <img src="assets/Cross-Border M&A.avif" alt="Cross-Border M&A" class="w-full h-48 object-cover">
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Cross-Border M&A</h3>
+        <p>Advising on cross-border mergers, acquisitions, and divestitures, with a focus on maximizing value.</p>
       </div>
-      <div class="bg-white/90 text-slate-900 p-6 rounded-xl shadow-lg">
-        <img src="/assets/business-growth.jpg" alt="Business Development" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h3 class="text-xl font-semibold">Business Development</h3>
-        <p class="mt-4 text-base">Connecting clients, partners, and investors across geographies to create strategic growth opportunities.</p>
+    </div>
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+      <img src="assets/Business Development.jpeg" alt="Business Development" class="w-full h-48 object-cover">
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Business Development</h3>
+        <p>Identifying and introducing strategic clients, partners, and investors throughout the U.S. and Latin America.</p>
       </div>
-      <div class="bg-white/90 text-slate-900 p-6 rounded-xl shadow-lg">
-        <img src="/assets/hands-on.jpg" alt="Operational Consulting" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h3 class="text-xl font-semibold">Operational Consulting</h3>
-        <p class="mt-4 text-base">Delivering operational and financial advisory to support expansion, restructuring, and performance improvement.</p>
+    </div>
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+      <img src="assets/Operational Consulting.jpeg" alt="Operational Consulting" class="w-full h-48 object-cover">
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Operational Consulting</h3>
+        <p>Providing operational and financial advisory to support expansion, restructuring, and performance improvement.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OUR APPROACH SECTION -->
-<section id="approach" class="relative h-screen flex items-center text-white pt-24 snap-start">
-  <img src="/assets/approach-bg.jpg" alt="Our approach background" class="absolute inset-0 w-full h-full object-cover -z-10" />
-  <div class="absolute inset-0 -z-10 bg-black/40"></div>
-
-  <div class="max-w-5xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-semibold">Our Approach</h2>
-    <div class="mt-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
-        <h3 class="text-xl font-semibold">Independent</h3>
-        <p class="mt-4 text-base">Not tied to any single fund, bank, or group — ensuring full alignment with client outcomes.</p>
-      </div>
-      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
-        <h3 class="text-xl font-semibold">Cross-Border Expertise</h3>
-        <p class="mt-4 text-base">Deep understanding of both U.S. and Latin American markets, enabling tailored strategies.</p>
-      </div>
-      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
-        <h3 class="text-xl font-semibold">Hands-On</h3>
-        <p class="mt-4 text-base">We don’t just advise — we help implement structures and processes that endure.</p>
-      </div>
-      <div class="bg-white/50 backdrop-blur-sm text-slate-900 p-6 rounded-xl shadow-lg">
-        <h3 class="text-xl font-semibold">Trusted Network</h3>
-        <p class="mt-4 text-base">Long-standing relationships with entrepreneurs, family offices, and corporates across geographies.</p>
-      </div>
+<!-- APPROACH SECTION -->
+<section id="approach" class="h-screen flex flex-col items-center justify-center bg-cover bg-center text-center px-6 snap-start" style="background-image: url('assets/approach-bg.jpg')">
+  <h2 class="text-4xl font-bold mb-12">Our Approach</h2>
+  <div class="grid md:grid-cols-2 gap-6 max-w-4xl w-full">
+    <div class="bg-white/50 p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-2">Independent</h3>
+      <p>We are not tied to a single fund, bank, or group, ensuring full alignment with client outcomes.</p>
+    </div>
+    <div class="bg-white/50 p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-2">Cross-Border Expertise</h3>
+      <p>Deep understanding of U.S. and Latin American business landscape.</p>
+    </div>
+    <div class="bg-white/50 p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-2">Hands-On</h3>
+      <p>We don’t just advise; we help implement structures and processes that endure.</p>
+    </div>
+    <div class="bg-white/50 p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-2">Trusted Network</h3>
+      <p>Long-standing relationships with entrepreneurs, family offices, and corporates across multiple geographies.</p>
     </div>
   </div>
 </section>
@@ -139,8 +101,8 @@
 <!-- CONTACT SECTION -->
 <section id="contact" class="snap-start py-16 flex items-center justify-center bg-slate-900 text-white text-center">
   <div>
-    <h2 class="text-3xl font-semibold">Contact</h2>
-    <p class="mt-6">Email us at <a href="mailto:admin@aniccaholdings.org" class="underline">admin@aniccaholdings.org</a></p>
+    <h2 class="text-3xl font-bold mb-4">Contact</h2>
+    <p>Email us at <a href="mailto:admin@aniccaholdings.org" class="underline">admin@aniccaholdings.org</a></p>
   </div>
 </section>
 
