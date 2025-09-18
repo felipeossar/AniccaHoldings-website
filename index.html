@@ -13,229 +13,152 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root{
-      --brand:#78d2b1; /* corporate light green */
-      --ink:#0f2f25;   /* deep green for accents */
+      --brand:#78d2b1;       /* corporate light green */
+      --ink:#0f2f25;         /* deep green for accents */
+      --card:#f8faf9;        /* light gray-green for cards */
     }
-    /* Anchor offset for sticky header */
+    /* Sticky anchor offset */
     :target::before { content: ""; display: block; height: 120px; margin-top: -120px; }
 
     /* Motion safety */
     @media (prefers-reduced-motion: reduce) {
       #bg-video { display:none !important; }
-      body { background:#0f172a; }
+      body { background:#0b1f17; }
     }
 
-    /* Scrollytelling helpers */
-    .pin { position: sticky; top: 0; height: 100vh; }
-    .vh { height: 100vh; }
-    .vhx2 { height: 200vh; }
+    /* Image aspect helpers */
+    .aspect-16x9 { position:relative; width:100%; padding-top:56.25%; }
+    .aspect-16x9 > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 
-    /* Crossfade frames */
-    .frame { position:absolute; inset:0; opacity:0; transform:scale(1.06); transition: opacity .6s ease, transform .8s ease; }
-    .frame.is-active{ opacity:1; transform:scale(1); }
-
-    /* Parallax reveal */
-    .parallax [data-parallax]{ transform: translateY(24px); opacity:0; transition: transform .9s cubic-bezier(.2,.65,.2,1), opacity .9s ease; }
-    .parallax.in-view [data-parallax]{ transform: translateY(0); opacity:1; }
+    /* Card hover */
+    .card { transition: transform .35s ease, box-shadow .35s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgb(0 0 0 / 0.08); }
   </style>
 </head>
-<body class="antialiased text-slate-800 bg-white">
+<body class="antialiased text-slate-900 bg-white">
 
-  <!-- Background video behind everything -->
-  <video id="bg-video" class="fixed inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
-    <source src="/assets/hero.mp4" type="video/mp4" />
-  </video>
-  <!-- Strong overlay for readability (tuned darker) -->
-  <div class="fixed inset-0 -z-10 pointer-events-none">
-    <div class="absolute inset-0 bg-black/60 md:bg-black/50"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70"></div>
-  </div>
-
-  <!-- Sticky global header -->
-  <header class="sticky top-0 z-40 backdrop-blur bg-black/70 border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between text-white">
-      <a href="#top" class="flex items-center gap-2 font-semibold drop-shadow-md">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
+  <!-- Fixed global header (always visible) -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/85 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 font-semibold text-slate-900">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 text-[color:var(--brand)]" fill="currentColor"><path d="M12 3l8.66 5v8L12 21 3.34 16V8z"/></svg>
         <span>Anicca Holdings</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#about" class="hover:text-[color:var(--brand)] drop-shadow-md">About</a>
-        <a href="#contact" class="hover:text-[color:var(--brand)] drop-shadow-md">Contact</a>
+        <a href="#what" class="hover:text-[color:var(--ink)]">What we do</a>
+        <a href="#approach" class="hover:text-[color:var(--ink)]">Our approach</a>
+        <a href="#contact" class="hover:text-[color:var(--ink)]">Contact</a>
       </nav>
     </div>
-    <div class="max-w-6xl mx-auto px-4 pb-4 text-white">
-      <h1 class="text-2xl md:text-3xl font-bold tracking-tight drop-shadow-md">Anicca Holdings LLC</h1>
-      <p class="mt-1 md:mt-2 text-base md:text-lg text-white/90 drop-shadow-md">Independent advisory and investment platform connecting Latin America with global opportunities.</p>
+    <div class="max-w-6xl mx-auto px-4 pb-4">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">Anicca Holdings LLC</h1>
+      <p class="mt-1 md:mt-2 text-base md:text-lg text-slate-700">Independent advisory and investment platform connecting Latin America with global opportunities.</p>
     </div>
   </header>
 
-  <!-- About -->
-  <section id="about" class="py-14 parallax">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-white drop-shadow-md" data-parallax>About Us</h2>
-      <div class="mt-6 grid md:grid-cols-2 gap-8">
-        <p class="text-white/90 leading-7 drop-shadow-md" data-parallax>
-          Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective.
-        </p>
-        <p class="text-white/90 leading-7 drop-shadow-md" data-parallax>
-          Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver results that are sustainable, compliant, and growth-oriented.
-        </p>
-      </div>
+  <!-- SECTION 1: Full-bleed background video with big centered copy -->
+  <section id="top" class="relative min-h-[90vh] flex items-center">
+    <!-- Background video behind everything -->
+    <video id="bg-video" class="absolute inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto" poster="/assets/hero-poster.jpg">
+      <source src="/assets/hero.mp4" type="video/mp4" />
+    </video>
+    <!-- Dark overlay for readability -->
+    <div class="absolute inset-0 -z-10 bg-black/50 md:bg-black/40"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-transparent to-black/60"></div>
+
+    <div class="max-w-5xl mx-auto px-4 py-24 text-center">
+      <p class="text-white text-2xl md:text-4xl leading-snug md:leading-snug font-medium drop-shadow-md">
+        Anicca Holdings LLC is a Delaware-based consulting, management, and investing company focused on supporting businesses and investors across Latin America and the United States. We provide strategic advisory, transaction support, and business development services with a cross-border perspective. Founded with the vision of bridging markets, our approach combines rigorous analysis with hands-on operational knowledge to deliver results that are sustainable, compliant, and growth-oriented.
+      </p>
     </div>
   </section>
 
-  <!-- Pinned stack: chapters crossfade as you scroll -->
-  <section id="stack" class="vhx2 relative">
-    <div class="pin overflow-hidden">
-      <div class="absolute inset-0">
-        <div class="frame is-active" id="f1">
-          <div class="w-full h-full grid place-items-center">
-            <div class="text-center px-6">
-              <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Cross‑border M&amp;A</h3>
-              <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Advising on mergers, acquisitions, and divestitures with structures that work in both the U.S. and Latin America.</p>
-            </div>
+  <!-- SECTION 2: What we do (Smart Soda "who we serve" style cards) -->
+  <section id="what" class="py-20 bg-[color:var(--card)]">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold text-slate-900 text-center">What we do</h2>
+      <p class="mt-3 text-slate-600 text-center max-w-3xl mx-auto">Advisory and execution across transactions, growth, and operations.</p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <!-- Card 1: Cross-border M&A -->
+        <article class="card rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <div class="aspect-16x9 bg-slate-200">
+            <img src="/assets/mna.jpg" alt="Cross-border M&A" onerror="this.src='https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop'"/>
           </div>
-        </div>
-        <div class="frame" id="f2">
-          <div class="w-full h-full grid place-items-center">
-            <div class="text-center px-6">
-              <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Business Development</h3>
-              <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Introductions to strategic clients, partners, and capital through a trusted, long‑standing network.</p>
-            </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-slate-900">Cross‑border M&amp;A</h3>
+            <p class="mt-2 text-slate-700">Advising on mergers, acquisitions, and divestitures with structures that work in both the U.S. and Latin America.</p>
           </div>
-        </div>
-        <div class="frame" id="f3">
-          <div class="w-full h-full grid place-items-center">
-            <div class="text-center px-6">
-              <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Operational Consulting</h3>
-              <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Hands‑on execution in finance, org design, and KPI systems to scale performance responsibly.</p>
-            </div>
+        </article>
+
+        <!-- Card 2: Business Development -->
+        <article class="card rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <div class="aspect-16x9 bg-slate-200">
+            <img src="/assets/business.jpg" alt="Business development" onerror="this.src='https://images.unsplash.com/photo-1529336953121-a5fc39be40cb?q=80&w=1200&auto=format&fit=crop'"/>
           </div>
-        </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-slate-900">Business Development</h3>
+            <p class="mt-2 text-slate-700">Identifying and introducing strategic clients, partners, and investors throughout the U.S. and Latin America.</p>
+          </div>
+        </article>
+
+        <!-- Card 3: Operational Consulting -->
+        <article class="card rounded-2xl bg-white border border-slate-200 overflow-hidden">
+          <div class="aspect-16x9 bg-slate-200">
+            <img src="/assets/ops.jpg" alt="Operational consulting" onerror="this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop'"/>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-slate-900">Operational Consulting</h3>
+            <p class="mt-2 text-slate-700">Hands‑on execution in finance, org design, and KPI systems to scale performance responsibly.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Scroll‑scrubbed chapter (optional video) -->
-  <section id="scrub" class="vhx2 relative">
-    <div class="pin overflow-hidden grid place-items-center">
-      <video id="scrubVideo" class="absolute inset-0 w-full h-full object-cover" playsinline muted preload="auto"></video>
-      <div id="scrubCopy" class="relative z-10 text-center px-6 opacity-0 transition-opacity duration-700">
-        <h3 class="text-4xl md:text-5xl font-semibold text-white drop-shadow-md">Scroll to Explore</h3>
-        <p class="mt-3 text-white/90 max-w-2xl mx-auto drop-shadow-md">Chaptered storytelling that responds to your scroll — the media timeline maps to your progress.</p>
+  <!-- SECTION 3: Our approach (four rectangles) -->
+  <section id="approach" class="py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold text-slate-900 text-center">Our approach</h2>
+      <p class="mt-3 text-slate-600 text-center max-w-3xl mx-auto">Principles that keep us aligned and effective.</p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
+          <h3 class="text-lg font-semibold text-slate-900">Independent</h3>
+          <p class="mt-2 text-slate-700">Not tied to any single fund, bank, or group — fully aligned with client outcomes.</p>
+        </article>
+        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
+          <h3 class="text-lg font-semibold text-slate-900">Hands‑On</h3>
+          <p class="mt-2 text-slate-700">We don’t just advise; we help implement structures and processes that endure.</p>
+        </article>
+        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
+          <h3 class="text-lg font-semibold text-slate-900">Cross‑Border Expertise</h3>
+          <p class="mt-2 text-slate-700">Deep understanding of U.S. and Latin American regulatory and operating environments.</p>
+        </article>
+        <article class="card rounded-2xl bg-white border border-slate-200 p-6">
+          <h3 class="text-lg font-semibold text-slate-900">Trusted Network</h3>
+          <p class="mt-2 text-slate-700">Relationships with entrepreneurs, family offices, and corporates across multiple geographies.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Our Approach -->
-  <section id="approach" class="py-14 parallax">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-white drop-shadow-md" data-parallax>Our Approach</h2>
-      <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
-          <h3 class="font-medium text-white drop-shadow-md">Independent</h3>
-          <p class="mt-2">Not tied to any single fund, bank, or group — fully aligned with client outcomes.</p>
-        </div>
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
-          <h3 class="font-medium text-white drop-shadow-md">Cross‑Border Expertise</h3>
-          <p class="mt-2">Deep understanding of U.S. and Latin American regulatory and operating environments.</p>
-        </div>
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
-          <h3 class="font-medium text-white drop-shadow-md">Hands‑On</h3>
-          <p class="mt-2">We don’t just advise; we help implement structures and processes that endure.</p>
-        </div>
-        <div class="rounded-2xl border border-white/15 bg-[color:var(--ink)]/50 p-6 text-white/95 drop-shadow-md" data-parallax>
-          <h3 class="font-medium text-white drop-shadow-md">Trusted Network</h3>
-          <p class="mt-2">Relationships with entrepreneurs, family offices, and corporates across multiple geographies.</p>
-        </div>
-      </div>
+  <!-- SECTION 4: Contact -->
+  <section id="contact" class="py-16 bg-[color:var(--card)]">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-semibold text-slate-900">Contact</h2>
+      <p class="mt-3 text-slate-700">Email us at <a class="underline text-[color:var(--ink)]" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.</p>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="py-14 parallax">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-white drop-shadow-md" data-parallax>Contact</h2>
-      <p class="mt-3 text-white/90 drop-shadow-md" data-parallax>Email us at <a class="underline text-white" href="mailto:admin@aniccaholdings.org">admin@aniccaholdings.org</a>.</p>
-    </div>
-  </section>
-
-  <footer class="border-t border-white/10 bg-black/70">
-    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-white/80 flex items-center justify-between gap-3">
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-slate-600 flex items-center justify-between gap-3">
       <p>© <span id="year"></span> Anicca Holdings LLC. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Parallax reveal: add .in-view to the SECTION itself (bugfix)
-    const parallaxSections = document.querySelectorAll('.parallax');
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); } });
-    },{threshold:0.15});
-    parallaxSections.forEach(sec=> io.observe(sec));
-
-    // Crossfade stack tied to #stack only (bugfix: avoid grabbing the wrong section)
-    const stackSection = document.getElementById('stack');
-    const frames = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
-    function updateStack(){
-      if(!stackSection) return;
-      const rectTop = stackSection.getBoundingClientRect().top + window.scrollY;
-      const height = stackSection.offsetHeight - window.innerHeight;
-      const p = Math.min(1, Math.max(0, (window.scrollY - rectTop) / Math.max(1,height)));
-      const idx = Math.min(frames.length-1, Math.floor(p * frames.length));
-      frames.forEach((f,i)=>{ if(f) f.classList.toggle('is-active', i===idx); });
-    }
-
-    // Scroll‑scrubbed video mapped to #scrub only
-    const scrubSection = document.getElementById('scrub');
-    const scrubVideo = document.getElementById('scrubVideo');
-    const scrubCopy  = document.getElementById('scrubCopy');
-
-    // Prefer /assets/scrub.mp4; fallback to hero.mp4 without throwing
-    (async () => {
-      try {
-        const r = await fetch('/assets/scrub.mp4', {method:'HEAD'});
-        const src = document.createElement('source');
-        src.src = (r && r.ok) ? '/assets/scrub.mp4' : '/assets/hero.mp4';
-        src.type = 'video/mp4';
-        scrubVideo.appendChild(src);
-        scrubVideo.load();
-      } catch(err){
-        const src = document.createElement('source');
-        src.src = '/assets/hero.mp4'; src.type = 'video/mp4';
-        scrubVideo.appendChild(src);
-        scrubVideo.load();
-      }
-    })();
-
-    function sectionProgress(section){
-      const start = section.getBoundingClientRect().top + window.scrollY;
-      const height = section.offsetHeight - window.innerHeight;
-      return Math.min(1, Math.max(0, (window.scrollY - start) / Math.max(1,height)));
-    }
-
-    let canScrub = false;
-    if (scrubVideo) {
-      scrubVideo.addEventListener('loadedmetadata', ()=>{ canScrub = true; updateScrub(); });
-    }
-
-    function updateScrub(){
-      if(!scrubSection || !scrubVideo || !canScrub) return;
-      const p = sectionProgress(scrubSection);
-      const dur = scrubVideo.duration || 1;
-      const eased = p * p * (3 - 2*p); // smoothstep easing
-      scrubVideo.currentTime = Math.min(dur - 0.05, Math.max(0, eased * dur));
-      scrubCopy.style.opacity = (p > 0.85) ? 1 : 0;
-      if (!scrubVideo.paused) scrubVideo.pause();
-    }
-
-    function onScroll(){ updateStack(); updateScrub(); }
-    window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', ()=>{ updateStack(); updateScrub(); });
-    updateStack(); updateScrub();
   </script>
 </body>
 </html>
